@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Entity
+@Entity(name = "users")
 @NoArgsConstructor
 public class User {
 
@@ -21,7 +21,8 @@ public class User {
 	@Column(nullable = false)
 	private String nickname;
 
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private String role;
+	private UserRole role;
 
 }
