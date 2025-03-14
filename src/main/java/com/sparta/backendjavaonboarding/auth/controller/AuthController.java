@@ -36,6 +36,9 @@ public class AuthController {
 
 	@PatchMapping("/admin/users/{userId}/roles")
 	public ResponseEntity<ApprovalResponse> approved(@PathVariable Long userId) {
-		return ResponseEntity.status(HttpStatus.OK).body(null);//추후 응답값 설정
+		ApprovalResponse resDto = authService.approved(userId);
+		return ResponseEntity
+			.status(HttpStatus.OK)
+			.body(resDto);
 	}
 }

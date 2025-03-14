@@ -39,4 +39,20 @@ public class AuthService {
 			.roles(roleResponses)
 			.build();
 	}
+	public ApprovalResponse approved(Long userId) {
+		User user = userRepository.findById(userId)
+			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
+
+		user.addRole(UserRole.ADMIN);
+		userRepository.save(user);
+
+		List<RoleResponse> roleResponses = List.of(RoleResponse.of(user.getRole()));
+
+		return ApprovalResponse.builder()
+			.username(user.getUsername())
+			.nickname(user.getNickname())
+			.roles(roleResponses)
+			.build();
+
+	}
 }
