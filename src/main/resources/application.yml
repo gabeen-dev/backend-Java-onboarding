@@ -1,3 +1,12 @@
 spring:
   application:
     name: backend-Java-onboarding
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true
+        foremat_sql: true
+        use_sql_commnts: true
