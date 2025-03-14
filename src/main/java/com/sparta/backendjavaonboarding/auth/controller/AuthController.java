@@ -22,8 +22,11 @@ public class AuthController {
 	private final AuthService authService;
 
 	@PostMapping("/signup")
-	public ResponseEntity<SignupResponse> singup(@RequestBody SignupRequest reqDto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(null);//추후 응답값 설정
+	public ResponseEntity<SignupResponse> signup(@RequestBody SignupRequest reqDto) {
+		SignupResponse resDto = authService.signup(reqDto);
+		return ResponseEntity
+			.status(HttpStatus.CREATED)
+			.body(resDto);
 	}
 
 	@PostMapping("/login")
@@ -32,7 +35,7 @@ public class AuthController {
 	}
 
 	@PatchMapping("/admin/users/{userId}/roles")
-	public ResponseEntity<ApprovalResponse> approved (@PathVariable Long userId) {
+	public ResponseEntity<ApprovalResponse> approved(@PathVariable Long userId) {
 		return ResponseEntity.status(HttpStatus.OK).body(null);//추후 응답값 설정
 	}
 }

@@ -1,12 +1,16 @@
 package com.sparta.backendjavaonboarding.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Builder
 @Getter
 @Entity(name = "users")
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
 	@Id
