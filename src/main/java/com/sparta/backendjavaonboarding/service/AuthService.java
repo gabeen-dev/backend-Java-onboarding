@@ -24,7 +24,7 @@ import java.util.List;
 public class AuthService {
 
 	private final UserRepository userRepository;
-	private JwtTokenProvider jwtTokenProvider;
+	private final JwtTokenProvider jwtTokenProvider;
 
 	public SignupResponse signup(SignupRequest reqDto) {
 		//회원가입 실패 (이미 가입된 사용자) 검증 추가
@@ -34,8 +34,8 @@ public class AuthService {
 
 	public LoginResponse login(LoginRequest reqDto) {
 		User user = userRepository.findByUsername(reqDto.getUsername())
-			                      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));//예외 수정
-		// 비밀번호 검증
+			                      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED)); // TODO : 예외 수정
+		// TODO : 비밀번호 검증, 암호화
 
 		String token = jwtTokenProvider.createToken(user.getUsername());
 		return new LoginResponse(token);

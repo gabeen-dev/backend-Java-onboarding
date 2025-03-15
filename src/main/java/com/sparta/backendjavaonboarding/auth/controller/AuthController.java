@@ -31,7 +31,8 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest reqDto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(null);//추후 응답값 설정
+		LoginResponse resDto = authService.login(reqDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(resDto); //추후 응답값 설정
 	}
 
 	@PatchMapping("/admin/users/{userId}/roles")
