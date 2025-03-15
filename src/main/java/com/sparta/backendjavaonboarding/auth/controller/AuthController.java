@@ -32,7 +32,7 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest reqDto) {
 		LoginResponse resDto = authService.login(reqDto);
-		return ResponseEntity.status(HttpStatus.CREATED).body(resDto); //추후 응답값 설정
+		return ResponseEntity.status(HttpStatus.CREATED).body(resDto);
 	}
 
 

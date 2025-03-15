@@ -16,8 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import static com.sparta.backendjavaonboarding.exception.ExceptionCode.INVALID_CREDENTIALS;
-import static com.sparta.backendjavaonboarding.exception.ExceptionCode.USER_ALREADY_EXISTS;
+import static com.sparta.backendjavaonboarding.exception.ExceptionCode.*;
 
 @Slf4j
 @Service
@@ -48,7 +47,7 @@ public class AuthService {
 
 	public ApprovalResponse approved(Long userId) {
 		User user = userRepository.findById(userId)
-			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
+			.orElseThrow(() -> new AuthException(USER_NOT_FOUND));
 
 		user.adminRole();
 		return ApprovalResponse.from(user);
