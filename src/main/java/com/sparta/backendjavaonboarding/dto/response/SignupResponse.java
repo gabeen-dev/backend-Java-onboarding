@@ -16,11 +16,10 @@ public class SignupResponse {
 
 
 	public static SignupResponse from(User user) {
-		List<RoleResponse> roleResponses = List.of(RoleResponse.of(user.getRole()));
 		return SignupResponse.builder()
 			.username(user.getUsername())
 			.nickname(user.getNickname())
-			.roles(roleResponses)
+			.roles(List.of(RoleResponse.of(user.getRole())))
 			.build();
 	}
 
