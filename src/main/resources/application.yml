@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   application:
     name: backend-Java-onboarding
 
@@ -22,10 +24,3 @@ spring:
     console:
       enabled: true
       path: /h2-console
-
-
-security:
-  jwt:
-    token:
-      secret-key: asdfasfdasfsafsadfsafassafasfasfasdfsaf3dfdfadf34wt232ds
-      expire-length: 3600000  # 만료 시간 (밀리초 단위)
