@@ -4,20 +4,18 @@ import com.sparta.backendjavaonboarding.dto.request.LoginRequest;
 import com.sparta.backendjavaonboarding.dto.request.SignupRequest;
 import com.sparta.backendjavaonboarding.dto.response.ApprovalResponse;
 import com.sparta.backendjavaonboarding.dto.response.LoginResponse;
-import com.sparta.backendjavaonboarding.dto.response.RoleResponse;
 import com.sparta.backendjavaonboarding.dto.response.SignupResponse;
 import com.sparta.backendjavaonboarding.entity.User;
-import com.sparta.backendjavaonboarding.entity.UserRole;
 import com.sparta.backendjavaonboarding.infrastructure.JwtTokenProvider;
 import com.sparta.backendjavaonboarding.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -29,6 +27,7 @@ public class AuthService {
 	public SignupResponse signup(SignupRequest reqDto) {
 		//회원가입 실패 (이미 가입된 사용자) 검증 추가
 		User signupUser = userRepository.save(reqDto.toEntity());
+		log.info(String.valueOf(signupUser));
 		return SignupResponse.from(signupUser);
 	}
 
@@ -43,18 +42,9 @@ public class AuthService {
 
 	public ApprovalResponse approved(Long userId) {
 		User user = userRepository.findById(userId)
-			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
-
-		user.defaultRole(UserRole.ADMIN);
-		userRepository.save(user);
-
-		List<RoleResponse> roleResponses = List.of(RoleResponse.of(user.getRole()));
-
-		return ApprovalResponse.builder()
-			.username(user.getUsername())
-			.nickname(user.getNickname())
-			.roles(roleResponses)
-			.build();
-
+								  .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
+		user.adminRole();
+		return ApprovalResponse.from(user);
 	}
+
 }

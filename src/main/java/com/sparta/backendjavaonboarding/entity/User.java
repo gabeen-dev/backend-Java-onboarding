@@ -1,11 +1,9 @@
 package com.sparta.backendjavaonboarding.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@ToString
 @Builder
 @Getter
 @Entity(name = "users")
@@ -33,4 +31,7 @@ public class User {
 		this.role = userRole;
 	}
 
+	public void adminRole() {
+		this.role = UserRole.ADMIN;
+	}
 }
