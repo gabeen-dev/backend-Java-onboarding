@@ -1,13 +1,20 @@
 package com.sparta.backendjavaonboarding.service;
 
+import com.sparta.backendjavaonboarding.dto.request.LoginRequest;
 import com.sparta.backendjavaonboarding.dto.request.SignupRequest;
+import com.sparta.backendjavaonboarding.dto.response.ApprovalResponse;
+import com.sparta.backendjavaonboarding.dto.response.LoginResponse;
 import com.sparta.backendjavaonboarding.dto.response.RoleResponse;
 import com.sparta.backendjavaonboarding.dto.response.SignupResponse;
 import com.sparta.backendjavaonboarding.entity.User;
+import com.sparta.backendjavaonboarding.entity.UserRole;
+import com.sparta.backendjavaonboarding.infrastructure.JwtTokenProvider;
 import com.sparta.backendjavaonboarding.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -15,35 +22,30 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class AuthService {
+
 	private final UserRepository userRepository;
+	private JwtTokenProvider jwtTokenProvider;
 
 	public SignupResponse signup(SignupRequest reqDto) {
-
-		User user = User.builder()
-			.username(reqDto.getUsername())
-			.password(reqDto.getPassword())
-			.nickname(reqDto.getNickname())
-			.build();
-
-		User signupUser = userRepository.save(user);
-
-		return toDto(signupUser);
+		//회원가입 실패 (이미 가입된 사용자) 검증 추가
+		User signupUser = userRepository.save(reqDto.toEntity());
+		return SignupResponse.from(signupUser);
 	}
 
-	public SignupResponse toDto(User user) {
-		List<RoleResponse> roleResponses = List.of(RoleResponse.of(user.getRole()));
+	public LoginResponse login(LoginRequest reqDto) {
+		User user = userRepository.findByUsername(reqDto.getUsername())
+			                      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));//예외 수정
+		// 비밀번호 검증
 
-		return SignupResponse.builder()
-			.username(user.getUsername())
-			.nickname(user.getNickname())
-			.roles(roleResponses)
-			.build();
+		String token = jwtTokenProvider.createToken(user.getUsername());
+		return new LoginResponse(token);
 	}
+
 	public ApprovalResponse approved(Long userId) {
 		User user = userRepository.findById(userId)
 			.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
 
-		user.addRole(UserRole.ADMIN);
+		user.defaultRole(UserRole.ADMIN);
 		userRepository.save(user);
 
 		List<RoleResponse> roleResponses = List.of(RoleResponse.of(user.getRole()));

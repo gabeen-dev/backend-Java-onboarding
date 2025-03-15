@@ -29,7 +29,8 @@ public class User {
 	@Column(nullable = false)
 	private UserRole role;
 
-	public void addRole(UserRole userRole) {
+	public void defaultRole(UserRole userRole) {
 		this.role = userRole;
 	}
+
 }
