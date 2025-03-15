@@ -1,13 +1,13 @@
-package com.sparta.backendjavaonboarding.service;
+package com.sparta.backendjavaonboarding.auth.service;
 
-import com.sparta.backendjavaonboarding.dto.request.LoginRequest;
-import com.sparta.backendjavaonboarding.dto.request.SignupRequest;
-import com.sparta.backendjavaonboarding.dto.response.ApprovalResponse;
-import com.sparta.backendjavaonboarding.dto.response.LoginResponse;
-import com.sparta.backendjavaonboarding.dto.response.SignupResponse;
-import com.sparta.backendjavaonboarding.entity.User;
-import com.sparta.backendjavaonboarding.infrastructure.JwtTokenProvider;
-import com.sparta.backendjavaonboarding.repository.UserRepository;
+import com.sparta.backendjavaonboarding.auth.dto.request.LoginRequest;
+import com.sparta.backendjavaonboarding.auth.dto.request.SignupRequest;
+import com.sparta.backendjavaonboarding.auth.dto.response.ApprovalResponse;
+import com.sparta.backendjavaonboarding.auth.dto.response.LoginResponse;
+import com.sparta.backendjavaonboarding.auth.dto.response.SignupResponse;
+import com.sparta.backendjavaonboarding.auth.entity.User;
+import com.sparta.backendjavaonboarding.auth.infrastructure.JwtTokenProvider;
+import com.sparta.backendjavaonboarding.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

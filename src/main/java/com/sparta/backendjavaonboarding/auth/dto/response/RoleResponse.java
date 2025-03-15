@@ -1,6 +1,6 @@
-package com.sparta.backendjavaonboarding.dto.response;
+package com.sparta.backendjavaonboarding.auth.dto.response;
 
-import com.sparta.backendjavaonboarding.entity.UserRole;
+import com.sparta.backendjavaonboarding.auth.entity.UserRole;
 import lombok.Builder;
 import lombok.Getter;
 

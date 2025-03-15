@@ -1,4 +1,4 @@
-package com.sparta.backendjavaonboarding.dto.response;
+package com.sparta.backendjavaonboarding.auth.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

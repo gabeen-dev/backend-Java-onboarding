@@ -1,4 +1,4 @@
-package com.sparta.backendjavaonboarding.entity;
+package com.sparta.backendjavaonboarding.auth.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

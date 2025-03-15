@@ -1,4 +1,4 @@
-package com.sparta.backendjavaonboarding.infrastructure;
+package com.sparta.backendjavaonboarding.auth.infrastructure;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;

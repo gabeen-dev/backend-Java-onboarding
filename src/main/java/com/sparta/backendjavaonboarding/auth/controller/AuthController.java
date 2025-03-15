@@ -1,11 +1,11 @@
 package com.sparta.backendjavaonboarding.auth.controller;
 
-import com.sparta.backendjavaonboarding.dto.request.LoginRequest;
-import com.sparta.backendjavaonboarding.dto.request.SignupRequest;
-import com.sparta.backendjavaonboarding.dto.response.ApprovalResponse;
-import com.sparta.backendjavaonboarding.dto.response.LoginResponse;
-import com.sparta.backendjavaonboarding.dto.response.SignupResponse;
-import com.sparta.backendjavaonboarding.service.AuthService;
+import com.sparta.backendjavaonboarding.auth.dto.request.LoginRequest;
+import com.sparta.backendjavaonboarding.auth.dto.request.SignupRequest;
+import com.sparta.backendjavaonboarding.auth.dto.response.ApprovalResponse;
+import com.sparta.backendjavaonboarding.auth.dto.response.LoginResponse;
+import com.sparta.backendjavaonboarding.auth.dto.response.SignupResponse;
+import com.sparta.backendjavaonboarding.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +35,7 @@ public class AuthController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(resDto); //추후 응답값 설정
 	}
 
+
 	@PatchMapping("/admin/users/{userId}/roles")
 	public ResponseEntity<ApprovalResponse> approved(@PathVariable Long userId) {
 		ApprovalResponse resDto = authService.approved(userId);
@@ -42,4 +43,5 @@ public class AuthController {
 			.status(HttpStatus.OK)
 			.body(resDto);
 	}
+
 }
