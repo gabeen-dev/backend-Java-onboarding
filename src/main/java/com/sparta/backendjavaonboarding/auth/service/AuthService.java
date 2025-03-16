@@ -13,11 +13,9 @@ import com.sparta.backendjavaonboarding.exception.AuthException;
 import com.sparta.backendjavaonboarding.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import static com.sparta.backendjavaonboarding.exception.ExceptionCode.*;
 
@@ -66,7 +64,7 @@ public class AuthService {
 		User user = userRepository.findByUsername(authentication.getUserName())
 			 .orElseThrow(() -> new AuthException(USER_NOT_FOUND));
 
-		if (!user.hasRole(authentication.getRole())) {
+		if (!user.hasAdminRole(authentication.getRole())) {
 			throw new AuthException(ExceptionCode.ACCESS_DENIED);
 		}
 	}

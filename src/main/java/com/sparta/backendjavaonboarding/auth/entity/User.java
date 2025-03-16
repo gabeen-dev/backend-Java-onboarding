@@ -36,8 +36,8 @@ public class User {
 		this.role = UserRole.ADMIN;
 	}
 
-	public boolean hasRole(UserRole role) {
-		return this.role.equals(role);
+	public boolean hasAdminRole(UserRole role) {
+		return this.role.equals(UserRole.ADMIN);
 	}
 
 }
