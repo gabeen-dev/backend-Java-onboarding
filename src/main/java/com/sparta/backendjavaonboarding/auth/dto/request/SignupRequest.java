@@ -13,11 +13,11 @@ public class SignupRequest {
 	private String password;
 	private String nickname;
 
-	public User toEntity() {
+	public User toEntity(String encryptedPassword) {
 		User user = User.builder()
 			.username(this.username)
-			.password(this.password)
 			.nickname(this.nickname)
+			.password(encryptedPassword)
 			.build();
 
 		user.defaultRole(UserRole.USER);
