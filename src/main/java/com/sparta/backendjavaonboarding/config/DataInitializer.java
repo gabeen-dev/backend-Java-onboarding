@@ -20,12 +20,11 @@ public class DataInitializer implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		User user1 = userRepository.save(User.builder()
-									.username("user1")
-									.nickname("user1")
-									.role(UserRole.ADMIN)
-									.password(passwordEncoder.encode("1234")).build());
-		log.info(user1.toString());
+		userRepository.save(User.builder()
+								.username("user1")
+								.nickname("user1")
+								.role(UserRole.ADMIN)
+								.password(passwordEncoder.encode("1234")).build());
 	}
 
 }
