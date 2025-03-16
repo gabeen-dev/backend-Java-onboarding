@@ -22,6 +22,7 @@ public class ExceptionResponse {
 			.build();
 	}
 
+
 	@Builder
 	@Getter
 	@AllArgsConstructor

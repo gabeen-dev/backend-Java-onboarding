@@ -21,6 +21,7 @@ public class AuthController {
 
 	private final AuthService authService;
 
+
 	@PostMapping("/signup")
 	public ResponseEntity<SignupResponse> signup(@RequestBody SignupRequest reqDto) {
 		SignupResponse resDto = authService.signup(reqDto);
@@ -34,7 +35,6 @@ public class AuthController {
 		LoginResponse resDto = authService.login(reqDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(resDto);
 	}
-
 
 	@PatchMapping("/admin/users/{userId}/roles")
 	public ResponseEntity<ApprovalResponse> approved(@PathVariable Long userId) {
