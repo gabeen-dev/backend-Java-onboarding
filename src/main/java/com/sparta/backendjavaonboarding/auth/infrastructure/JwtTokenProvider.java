@@ -52,10 +52,17 @@ public class JwtTokenProvider {
 			.role(UserRole.valueOf(role)).build();
 	}
 
-	public void  validateToken(String token) {
-		Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+	public void validateToken(String token) {
+		Jws<Claims> claims;
+
+		try {
+			claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+		} catch (Exception e) {
+			throw new AuthException(ExceptionCode.INVALID_TOKEN);
+		}
+
 		if (claims.getBody().getExpiration().before(new Date())) {
-			throw new AuthException(ExceptionCode.ACCESS_DENIED);
+			throw new AuthException(ExceptionCode.INVALID_TOKEN);
 		}
 	}
 

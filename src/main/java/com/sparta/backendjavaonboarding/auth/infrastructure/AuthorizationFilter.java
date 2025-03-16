@@ -55,19 +55,20 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 			jwtTokenProvider.validateToken(accessToken);
 			Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
 			authService.validateUser(authentication);
-		} catch (Exception ex) {
-			authExceptionHandler(response);
+		} catch (AuthException ex) {
+			authExceptionHandler(response, ex);
 			return;
 		}
 
 		filterChain.doFilter(request, response);
 	}
 
-	private void authExceptionHandler(HttpServletResponse response) throws IOException {
-		response.setStatus(ACCESS_DENIED.getStatus().value());
+	private void authExceptionHandler(HttpServletResponse response, AuthException ex) throws IOException {
+
+		response.setStatus(ex.getExceptionCode().getStatus().value());
 		response.setContentType(APPLICATION_JSON_VALUE);
 		response.setCharacterEncoding(UTF_8.name());
-		response.getWriter().write(objectMapper.writeValueAsString(ExceptionResponse.of(new AuthException(ACCESS_DENIED))));
+		response.getWriter().write(objectMapper.writeValueAsString(ExceptionResponse.of(ex)));
 	}
 
 	private String extractToken(String authHeader) {
